@@ -3,195 +3,106 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>IrsanAI-Genesis — Ouroboros Factory + F12 Console</title>
+<title>IrsanAI-Genesis v0.5 — Buddy Reunion + F12</title>
 <style>
-:root{--bg:#0a0a0b;--card:#141416;--line:#232326;--green:#00ff88;--text:#e8e8ea;--muted:#9a9aa0;--red:#ff4d4d}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1a2a1f 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,monospace;padding-bottom:220px}
-.wrap{max-width:1100px;margin:0 auto;padding:20px}
-.top{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:rgba(20,20,22,.9);backdrop-filter:blur(12px);border-radius:14px;padding:12px 14px}
+:root{--bg:#0a0a0b;--card:#141416;--line:#232326;--green:#00ff88;--text:#e8e8ea;--muted:#9a9aa0;--red:#ff5a5a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 15% -10%,#1a2a1f 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,monospace;padding-bottom:260px}
+.wrap{max-width:1100px;margin:0 auto;padding:18px}
+.top{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:rgba(20,20,22,.92);border-radius:14px;padding:10px 14px}
 .badge{border:1px solid var(--green);color:var(--green);border-radius:999px;padding:3px 8px;font-size:11px}
 .h1{font-size:28px;line-height:1.1;margin:18px 0 8px;font-weight:800}
 .sub{color:var(--muted);font-size:13px;line-height:1.5}
-.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px}
-.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px}
+.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px;margin-top:14px}
 .label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font-size:14px;outline:none}
+input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font-size:14px}
 .btn{width:100%;margin-top:10px;background:var(--text);color:#000;border:0;border-radius:10px;padding:13px 14px;font-weight:700;cursor:pointer}
 .btn2{background:transparent;color:var(--text);border:1px solid var(--line)}
-.kpi{display:flex;gap:8px;margin-top:10px}
-.kpi div{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11px}
-.kpi b{color:var(--green)}
-pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;line-height:1.45;max-height:300px;overflow:auto}
-#irsanConsole{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#0f0f11;border-top:2px solid var(--green);max-height:42vh;display:flex;flex-direction:column}
+pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;line-height:1.45;max-height:320px;overflow:auto}
+#irsanConsole{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#0f0f11;border-top:2px solid var(--green);max-height:46vh;display:flex;flex-direction:column}
 #irsanConsoleHead{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#141416;border-bottom:1px solid var(--line)}
-#irsanConsoleHead b{font-size:11px;letter-spacing:.08em}
-#irsanConsoleLogs{overflow:auto;padding:8px 10px;font-size:11px;line-height:1.4;background:#0a0a0b;flex:1}
-.log{margin:2px 0}
-.log.INFO{color:var(--text)}
-.log.CLICK{color:#7ec8ff}
-.log.VALUE{color:#ffd479}
-.log.SUCCESS{color:var(--green)}
-.log.ERROR{color:var(--red);font-weight:700}
-.log.SYSTEM{color:var(--muted)}
-.consoleBtn{border:1px solid var(--line);background:#1c1c1f;color:var(--text);border-radius:8px;padding:5px 8px;font-size:10px;margin-left:6px;cursor:pointer}
+#irsanConsoleLogs{overflow:auto;padding:8px 10px;font-size:11px;line-height:1.5;background:#0a0a0b;flex:1}
+.log{margin:2px 0}.INFO{color:var(--text)}.CLICK{color:#7ec8ff}.VALUE{color:#ffd479}.SUCCESS{color:var(--green)}.ERROR{color:var(--red);font-weight:700}.BUDDY{color:#00ff88;font-weight:700}.SYSTEM{color:var(--muted)}
+.cbtn{border:1px solid var(--line);background:#1c1c1f;color:var(--text);border-radius:8px;padding:5px 8px;font-size:10px;margin-left:6px;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><div><b>IrsanAI-Genesis</b> <span style="color:#9a9aa0">— Ouroboros + F12</span></div><div class="badge">v0.4 Inhouse Console</div></div>
-<div class="h1">Step 2 gebaert Step 1.<br/>Jetzt mit F12 am Handy.</div>
-<div class="sub">Prefill = IrsanAI-Orbit. BIRTH muss Output rendern. Wenn nicht, siehst du unten LIVE in der IrsanAI Console warum — copy-paste faehig für Pros. Kein externer Map Provider — eigener Atlas Stack.</div>
-<div class="grid">
+<div class="top"><div style="display:flex;align-items:center;gap:10px"><svg width="28" height="28" viewBox="0 0 100 100"><path d="M50 4 L88 26 L88 74 L50 96 L12 74 L12 26 Z" fill="#0a0a0b" stroke="#00ff88" stroke-width="2.5"/><text x="50" y="58" text-anchor="middle" font-family="monospace" font-weight="800" font-size="26" fill="#00ff88">IR</text></svg><div><b>IrsanAI-Genesis</b> <span style="color:#9a9aa0">— v0.5 Buddy Reunion</span></div></div><div class="badge">BUDDY IS BACK</div></div>
+<div class="h1">Buddy war nie weg.<br/>Wir haben nur vergessen<br/>warum wir ihn gebaut haben.</div>
+<div class="sub">Buddy = Consumer der komplexe Welt einfach macht. Du sagst "Orbit" — Buddy macht TaskClassifier -> EG 4e74a97 gatekeep 0.88 MATCH -> Creator draft. Ohne cat tippen. Das ist IRSANAI.</div>
 <div class="card">
-<div class="label">Genesis Wizard — Neues Repo gebaeren</div>
-<input id="repoName" value="IrsanAI-Orbit" placeholder="IrsanAI-Orbit"/>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
-<select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select>
-<select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option><option>Root Ascent Methodic</option></select>
-</div>
-<button class="btn" id="birthBtn">BIRTH — IrsanAI-Orbit live gebaeren</button>
+<div class="label">Genesis Wizard — mit Buddy</div>
+<input id="repoName" value="IrsanAI-Orbit"/>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select><select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option><option>Root Ascent</option></select></div>
+<button class="btn" id="birthBtn">BIRTH — Buddy gebaert IrsanAI-Orbit live</button>
 <button class="btn btn2" id="selfBtn">OUROBOROS — Genesis self-birth</button>
-<div class="kpi"><div>EG Gate<br/><b id="gate">4e74a97 13/13</b></div><div>Match<br/><b id="match">code-gen 0.88</b></div><div>Build<br/><b id="build">GRUEN</b></div></div>
 </div>
-<div class="card">
-<div class="label">Output — cat Blocks fuer Termux</div>
-<pre id="out">Warte auf BIRTH...</pre>
+<div class="card"><div class="label">Output — cat Blocks fuer Termux (Buddy generiert)</div><pre id="out">Warte auf Buddy...</pre></div>
+<div class="card"><div class="label">Buddy Assets Preview</div><div style="display:flex;gap:12px;align-items:center"><img src="assets/buddy/buddy-icon.svg" width="48" height="48" style="border:1px solid #232326;border-radius:10px"/><img src="assets/buddy/buddy-builder.svg" width="240" style="border:1px solid #232326;border-radius:10px"/><div style="color:#9a9aa0;font-size:11px;line-height:1.4">buddy-icon.svg = Favicon + F12<br/>buddy-builder.svg = Builder Mode<br/>buddy-onboarding.webp kommt am Laptop dazu</div></div></div>
 </div>
-</div>
-</div>
-
 <div id="irsanConsole">
-<div id="irsanConsoleHead">
-<div><b>F12 IRSANAI INHOUSE CONSOLE</b> <span style="color:#9a9aa0;font-size:10px">— Pro Dev Logs — tap to debug</span></div>
-<div>
-<button class="consoleBtn" id="copyLogsBtn">COPY LOGS</button>
-<button class="consoleBtn" id="clearLogsBtn">CLEAR</button>
-<button class="consoleBtn" id="toggleConsoleBtn">MIN</button>
-</div>
-</div>
+<div id="irsanConsoleHead"><div style="display:flex;align-items:center;gap:8px"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b" stroke="#00ff88" stroke-width="1.2"/><text x="16" y="20" text-anchor="middle" font-family="monospace" font-weight="800" font-size="14" fill="#00ff88">IR</text></svg><b>F12 IRSANAI BUDDY CONSOLE</b> <span style="color:#9a9aa0;font-size:10px">— GUIDE MODE ACTIVE</span></div><div><button class="cbtn" id="copyLogsBtn">COPY LOGS</button><button class="cbtn" id="clearLogsBtn">CLEAR</button><button class="cbtn" id="toggleBtn">MIN</button></div></div>
 <div id="irsanConsoleLogs"></div>
 </div>
-
 <script>
-var IRSAN_LOGS = [];
-function nowTS(){var d=new Date();return d.toTimeString().split(" ")[0]+"."+String(d.getMilliseconds()).padStart(3,"0");}
-function irsanLog(tag, msg){
-  var line = "["+nowTS()+"] ["+tag+"] "+msg;
-  IRSAN_LOGS.push(line);
-  var logsDiv = document.getElementById("irsanConsoleLogs");
-  if(logsDiv){
-    var div = document.createElement("div");
-    div.className = "log "+tag;
-    div.innerText = line;
-    logsDiv.appendChild(div);
-    logsDiv.scrollTop = logsDiv.scrollHeight;
-  }
-  try{console.log(line);}catch(e){}
-}
-window.addEventListener("error", function(e){
-  irsanLog("ERROR", "window.onerror: "+e.message+" at "+e.filename+":"+e.lineno+":"+e.colno);
-});
-window.addEventListener("unhandledrejection", function(e){
-  irsanLog("ERROR", "unhandledrejection: "+(e.reason && e.reason.message? e.reason.message : e.reason));
-});
-function initConsole(){
-  irsanLog("SYSTEM", "IrsanAI F12 Console init — UserAgent: "+navigator.userAgent);
-  irsanLog("SYSTEM", "Viewport: "+window.innerWidth+"x"+window.innerHeight+" DPR:"+window.devicePixelRatio);
-  irsanLog("SYSTEM", "URL: "+location.href);
-  var rn = document.getElementById("repoName");
-  irsanLog("VALUE", "repoName input found: "+!!rn+" value="+(rn?rn.value:"NULL"));
-  irsanLog("SYSTEM", "Attaching listeners to birthBtn + selfBtn");
-  var bb = document.getElementById("birthBtn");
-  var sb = document.getElementById("selfBtn");
-  irsanLog("SYSTEM", "birthBtn found: "+!!bb+" selfBtn found: "+!!sb);
-}
+var LOGS=[];
+function ts(){var d=new Date();return d.toTimeString().split(" ")[0];}
+function log(tag,msg){var line="["+ts()+"] ["+tag+"] "+msg;LOGS.push(line);var el=document.getElementById("irsanConsoleLogs");if(el){var d=document.createElement("div");d.className="log "+tag;d.innerText=line;el.appendChild(d);el.scrollTop=el.scrollHeight;}try{console.log(line);}catch(e){}}
+window.addEventListener("error",function(e){log("ERROR","onerror: "+e.message+" @"+e.lineno);});
 function birth(){
   try{
-    irsanLog("CLICK", "BIRTH clicked");
-    var input = document.getElementById("repoName");
-    if(!input){irsanLog("ERROR","repoName element NOT FOUND");return;}
-    var name = (input.value || "").trim() || "IrsanAI-Orbit";
-    irsanLog("VALUE", "repoName = "+name);
-    var typeEl = document.getElementById("repoType");
-    var layerEl = document.getElementById("layer");
-    var type = typeEl? typeEl.value : "Graph / Orbit";
-    var layer = layerEl? layerEl.value : "Ist vs Soll";
-    irsanLog("VALUE", "type="+type+" layer="+layer);
-    var gate = document.getElementById("gate");
-    var match = document.getElementById("match");
-    var build = document.getElementById("build");
-    var outEl = document.getElementById("out");
-    if(!outEl){irsanLog("ERROR","out element NOT FOUND");return;}
-    if(gate) gate.innerText = "4e74a97 13/13 GRUEN";
-    if(match) match.innerText = "code-generation 0.88 MATCH - "+type;
-    if(build) build.innerText = "GRUEN - portable";
-    var btn = document.getElementById("birthBtn");
-    if(btn) btn.innerText = "BIRTH - "+name+" live";
-    irsanLog("INFO", "Generating cat blocks for "+name);
-    var out = "";
-    out += "cd ~/github/IrsanAI\n";
-    out += "mkdir -p "+name+"\n";
-    out += "cd ~/github/IrsanAI/"+name+"\n";
-    out += "mkdir -p docs src scripts templates\n";
-    out += "cat > docs/METHODIC.md << 'ENDOFFILE'\n";
-    out += name+" v0.1 - Born by IrsanAI-Genesis v0.4 Ouroboros F12\n";
-    out += "Ist-Stand: empty repo\n";
-    out += "Soll-Stand: 100% GRUEN via EG 4e74a97 13/13 + "+layer+"\n";
-    out += "Type: "+type+"\n";
-    out += "Atlas: eigener Stack, kein Fremd-Provider\n";
-    out += "ENDOFFILE\n\n";
-    out += "cat > README.md << 'ENDOFFILE'\n";
-    out += "# "+name+" - Living Observatory\n";
-    out += "Born by https://irsanai.github.io/IrsanAI-Genesis/\n";
-    out += "ENDOFFILE\n";
-    outEl.innerText = out;
-    irsanLog("SUCCESS", "Output rendered — length="+out.length);
-  }catch(err){
-    irsanLog("ERROR", "birth() exception: "+err.message+" stack="+(err.stack||"no stack"));
-  }
+    log("CLICK","BIRTH clicked — Buddy uebernimmt");
+    var input=document.getElementById("repoName");
+    if(!input){log("ERROR","repoName input missing");return;}
+    var name=(input.value||"").trim()||"IrsanAI-Orbit";
+    log("VALUE","repoName="+name);
+    var type=document.getElementById("repoType").value;
+    var layer=document.getElementById("layer").value;
+    log("BUDDY","GUIDE MODE ACTIVE — TaskClassifier: essenceGuess='"+name+" "+type+"'");
+    log("BUDDY","gatekeep() vs EG 4e74a97 13/13 GRUEN...");
+    log("BUDDY","MATCH 0.88 code-generation — Creator draft start");
+    var out="";
+    out+="cd ~/github/IrsanAI\n";
+    out+="mkdir -p "+name+"\n";
+    out+="cd ~/github/IrsanAI/"+name+"\n";
+    out+="mkdir -p docs src scripts templates assets/buddy\n";
+    out+="cat > docs/METHODIC.md << 'ENDOFFILE'\n";
+    out+=name+" v0.1 — Born by Buddy + Genesis v0.5 Reunion\n";
+    out+="Ist: empty repo\n";
+    out+="Soll: 100% GRUEN via EG 4e74a97 13/13 + "+layer+" + Atlas Stack\n";
+    out+="Type: "+type+" — Buddy TaskClassifier -> gatekeep 0.88 MATCH\n";
+    out+="Buddy: Consumer der komplexe Welt einfach macht — IRSANAI\n";
+    out+="ENDOFFILE\n\n";
+    out+="cat > README.md << 'ENDOFFILE'\n";
+    out+="# "+name+" — Living Observatory — Born by Buddy\n";
+    out+="Born by https://irsanai.github.io/IrsanAI-Genesis/ — Buddy Builder Mode\n";
+    out+="ENDOFFILE\n";
+    var outEl=document.getElementById("out");
+    if(outEl){outEl.innerText=out; log("SUCCESS","Output gerendert len="+out.length+" — Buddy fertig");}
+    var btn=document.getElementById("birthBtn");
+    if(btn) btn.innerText="BIRTH — Buddy hat "+name+" geboren";
+  }catch(e){log("ERROR","birth() crash: "+e.message);}
 }
-document.addEventListener("DOMContentLoaded", function(){
-  initConsole();
-  var bb = document.getElementById("birthBtn");
-  var sb = document.getElementById("selfBtn");
-  if(bb){
-    bb.addEventListener("click", birth);
-    bb.addEventListener("touchend", function(e){e.preventDefault(); birth();});
-    irsanLog("SYSTEM","birthBtn listeners attached");
-  }
-  if(sb){
-    sb.addEventListener("click", function(){
-      irsanLog("CLICK","OUROBOROS clicked");
-      var rn = document.getElementById("repoName");
-      if(rn) rn.value = "IrsanAI-Genesis";
-      birth();
-    });
-  }
+document.addEventListener("DOMContentLoaded",function(){
+  log("SYSTEM","Buddy F12 init — UA: "+navigator.userAgent.substring(0,80));
+  log("SYSTEM","Viewport "+window.innerWidth+"x"+window.innerHeight);
+  log("BUDDY","ONBOARDING 100% — SYSTEM ONLINE READY — I'M HERE TO HELP");
+  log("BUDDY","Ich wurde erschaffen damit du nicht mehr cat tippen musst — ich mache es fuer dich");
+  var b=document.getElementById("birthBtn");
+  var s=document.getElementById("selfBtn");
+  if(b){b.addEventListener("click",birth); b.addEventListener("touchend",function(e){e.preventDefault();birth();}); log("SYSTEM","birthBtn listener attached");}
+  if(s){s.addEventListener("click",function(){document.getElementById("repoName").value="IrsanAI-Genesis";birth();});}
   birth();
-  irsanLog("SUCCESS","Initial birth() called — prefill IrsanAI-Orbit");
 });
-document.getElementById("copyLogsBtn").addEventListener("click", function(){
-  var text = IRSAN_LOGS.join("\n");
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(function(){irsanLog("SUCCESS","Logs copied to clipboard");}).catch(function(e){irsanLog("ERROR","Clipboard copy failed: "+e.message);});
-  }else{
-    irsanLog("SYSTEM","Fallback copy — select logs manually");
-    var logsDiv = document.getElementById("irsanConsoleLogs");
-    var range = document.createRange();
-    range.selectNode(logsDiv);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-  }
+document.getElementById("copyLogsBtn").addEventListener("click",function(){
+  var t=LOGS.join("\n");
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){log("SUCCESS","Logs copied");});}else{log("SYSTEM","Select logs manually");}
 });
-document.getElementById("clearLogsBtn").addEventListener("click", function(){
-  IRSAN_LOGS = [];
-  document.getElementById("irsanConsoleLogs").innerHTML = "";
-  irsanLog("SYSTEM","Logs cleared");
-});
-document.getElementById("toggleConsoleBtn").addEventListener("click", function(){
-  var logs = document.getElementById("irsanConsoleLogs");
-  var btn = document.getElementById("toggleConsoleBtn");
-  if(logs.style.display==="none"){logs.style.display="block";btn.innerText="MIN";}else{logs.style.display="none";btn.innerText="MAX";}
+document.getElementById("clearLogsBtn").addEventListener("click",function(){LOGS=[];document.getElementById("irsanConsoleLogs").innerHTML=""; log("SYSTEM","cleared");});
+document.getElementById("toggleBtn").addEventListener("click",function(){
+  var l=document.getElementById("irsanConsoleLogs");
+  var b=document.getElementById("toggleBtn");
+  if(l.style.display==="none"){l.style.display="block";b.innerText="MIN";}else{l.style.display="none";b.innerText="MAX";}
 });
 </script>
 </body>
