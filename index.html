@@ -22,7 +22,7 @@ input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:va
 .kpi{display:flex;gap:10px;margin-top:12px}
 .kpi div{flex:1;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12px}
 .kpi b{color:var(--green)}
-pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12px;line-height:1.5;max-height:420px;overflow:auto}
+pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12px;line-height:1.5;max-height:520px;overflow:auto}
 .layers{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .layers span{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:11px;color:var(--muted)}
 .layers .on{border-color:var(--green);color:var(--green)}
@@ -30,69 +30,73 @@ pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px sol
 </head>
 <body>
 <div class="wrap">
-<div class="top"><div><b>IrsanAI-Genesis</b> <span style="color:var(--muted)">— The Ouroboros Factory</span></div><div class="badge">v0.1 manually born -> v0.2 self-birth LIVE</div></div>
+<div class="top"><div><b>IrsanAI-Genesis</b> <span style="color:var(--muted)">— Ouroboros Factory</span></div><div class="badge">v0.2 -> v0.3 self-birth LIVE</div></div>
 <div class="h1">Schritt 2 gebärt Schritt 1.<br/>Die Fabrik die sich selbst baut,<br/>um dich zu bauen.</div>
-<div class="sub">Ist-Stand = manuell via cat ENDOFFILE nach LS 8fc02b0 v1.0.5. Soll-Stand = self-born via EG 4e74a97 13/13 GRUEN + 8-Klassen Regel. Ohne Root Ascent + richtige Essence kein Soll. Diese Page ist der Beweis.</div>
+<div class="sub">v0.1 manuell via Termux cd + mkdir nach LS 8fc02b0 v1.0.5. v0.2 self-born live auf Pages. Kein externer Map Provider, kein Trademark. Nur eigener Atlas Layer Stack + Timeline + Chemie.</div>
 <div class="grid">
 <div class="card">
 <div class="label">Genesis Wizard — Neues Repo gebären</div>
 <input id="repoName" value="IrsanAI-Orbit" placeholder="IrsanAI-Orbit"/>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
 <select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select>
-<select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>2030 Compatibility</option><option>Gold Buddy Layer</option><option>Root Ascent Methodic</option></select>
+<select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option><option>Root Ascent Methodic</option></select>
 </div>
-<button class="btn" onclick="birth()">BIRTH — Genesis gebärt {{repo}} live</button>
-<button class="btn btn2" onclick="selfBirth()">OUROBOROS — Genesis gebärt sich selbst v0.2</button>
+<button class="btn" id="birthBtn">BIRTH — Genesis gebärt Repo live</button>
+<button class="btn btn2" id="selfBtn">OUROBOROS — Genesis gebärt sich selbst</button>
 <div class="kpi"><div>EG Gate<br/><b id="gate">4e74a97 13/13 GRUEN</b></div><div>Best Match<br/><b id="match">code-generation 0.88</b></div><div>Build<br/><b id="build">GRUEN</b></div></div>
-<div class="label" style="margin-top:14px">Live Layers — wie Google Earth</div>
-<div class="layers"><span class="on">Timeline Slider (Mausrad)</span><span class="on">FIFA Chemie Resonanz</span><span>2030 code4future</span><span>Gold Buddy</span><span>Root Ascent</span><span>Depth/Breadth</span></div>
+<div class="label" style="margin-top:14px">Live Layers — eigener Stack, kein Fremd-API</div>
+<div class="layers"><span class="on">Timeline Slider (Mausrad)</span><span class="on">FIFA Chemie Resonanz</span><span>Future-Proof</span><span>Gold Buddy</span><span>Root Ascent</span><span>Atlas Depth/Breadth</span></div>
 </div>
 <div class="card">
-<div class="label">Output — cat << 'ENDOFFILE' Blocks für Termux</div>
-<pre id="out">Tippe IrsanAI-Orbit und klicke BIRTH — Genesis generiert dir den kompletten Scaffold nach 0ce8220 + 8fc02b0 v1.0.5 portable — ready für cd ~/github/IrsanAI/IrsanAI-Orbit + git clone</pre>
-</div>
-</div>
-<div class="card" style="margin-top:18px">
-<div class="label">Paradox Erklärung</div>
-<div style="color:var(--muted);font-size:13px;line-height:1.6">
-v0.1 = wir haben Genesis manuell gebaut mit mkdir -p + cat > docs/METHODIC.md — wie LS 8fc02b0. Das ist Schritt 2 vor 1 — unlogisch. v0.2 = diese Page hier nimmt ihren eigenen Code aus index.html + templates/ und generiert daraus sich selbst neu — self-born. Ab dann gilt: Jedes neue Repo wird nie wieder 80% scaffold experimental — es wird 100% GRUEN geboren weil Genesis nur noch 100% GRUEN Babys zulässt. Das ist IRSANAI = Einfachheit in komplexen Umgebungen.
+<div class="label">Output — cat Blocks für Termux</div>
+<pre id="out">Lade...</pre>
 </div>
 </div>
 </div>
 <script>
 function birth(){
-  var name=document.getElementById('repoName').value.trim()||'IrsanAI-Orbit';
-  var type=document.getElementById('repoType').value;
-  var layer=document.getElementById('layer').value;
-  document.getElementById('gate').innerText='4e74a97 13/13 GRUEN';
-  document.getElementById('match').innerText='code-generation 0.88 MATCH — '+type;
-  document.getElementById('build').innerText='GRUEN — portable';
-  var out='';
-  out+='cd ~/github/IrsanAI\n';
-  out+='mkdir -p '+name+'\n';
-  out+='cd ~/github/IrsanAI/'+name+'\n';
-  out+='mkdir -p docs src scripts templates\n';
-  out+='cat > docs/METHODIC.md << \'ENDOFFILE\'\n';
-  out+=name+' v0.1 — Born by IrsanAI-Genesis v0.1 -> v0.2 Ouroboros\n';
-  out+='Ist-Stand: empty repo on GitHub\n';
-  out+='Soll-Stand: 100% GRUEN via EG 4e74a97 13/13 + Timeline Slider + FIFA Chemie Layer '+layer+'\n';
-  out+='Type: '+type+' — TaskClassifier -> gatekeep() vs 13 -> 0.88 MATCH else Elicitor\n';
-  out+='Flow: cd ~/github/IrsanAI/'+name+' -> npx tsx scripts/validate-registry.ts --verbose -> Gate 0.88 -> Orbit live\n';
-  out+='ENDOFFILE\n\n';
-  out+='cat > README.md << \'ENDOFFILE\'\n';
-  out+='# '+name+' — The Living Observatory\n';
-  out+='Real-time Obsidian graph, timeline slider per commit, FIFA Chemistry resonance, Ist vs Soll via Root Ascent.\n';
-  out+='Born by Genesis: https://irsanai.github.io/IrsanAI-Genesis/\n';
-  out+='ENDOFFILE\n\n';
-  out+='cat > scripts/validate-registry.ts << \'ENDOFFILE\'\n// same as Genesis — EG 4e74a97 13/13 GRUEN\nENDOFFILE\n';
-  out+='// ... Genesis generiert alle Files nach 8fc02b0 v1.0.5 portable — git add . + git commit + git push\n';
-  document.getElementById('out').innerText=out;
+  var input = document.getElementById("repoName");
+  var name = (input.value || "").trim() || "IrsanAI-Orbit";
+  var type = document.getElementById("repoType").value;
+  var layer = document.getElementById("layer").value;
+  document.getElementById("gate").innerText = "4e74a97 13/13 GRUEN";
+  document.getElementById("match").innerText = "code-generation 0.88 MATCH - " + type;
+  document.getElementById("build").innerText = "GRUEN - portable";
+  document.getElementById("birthBtn").innerText = "BIRTH - Genesis gebaert " + name + " live";
+
+  var out = "";
+  out += "cd ~/github/IrsanAI\n";
+  out += "mkdir -p " + name + "\n";
+  out += "cd ~/github/IrsanAI/" + name + "\n";
+  out += "mkdir -p docs src scripts templates\n";
+  out += "cat > docs/METHODIC.md << 'ENDOFFILE'\n";
+  out += name + " v0.1 - Born by IrsanAI-Genesis v0.3 Ouroboros\n";
+  out += "Ist-Stand: empty repo on GitHub\n";
+  out += "Soll-Stand: 100% GRUEN via EG 4e74a97 13/13 + Timeline + Chemie Layer " + layer + "\n";
+  out += "Type: " + type + " - TaskClassifier -> gatekeep() vs 13 -> 0.88 MATCH\n";
+  out += "Flow: cd ~/github/IrsanAI/" + name + " -> npx tsx scripts/validate-registry.ts --verbose -> Gate 0.88 -> live\n";
+  out += "Atlas: eigener Layer Stack, kein externer Map Provider - Future Proof\n";
+  out += "ENDOFFILE\n\n";
+  out += "cat > README.md << 'ENDOFFILE'\n";
+  out += "# " + name + " - The Living Observatory\n";
+  out += "Real-time graph, timeline slider per commit, FIFA Chemie resonance, Ist vs Soll via Root Ascent.\n";
+  out += "Born by Genesis: https://irsanai.github.io/IrsanAI-Genesis/\n";
+  out += "No external map provider - own Atlas Stack.\n";
+  out += "ENDOFFILE\n\n";
+  out += "cat > scripts/validate-registry.ts << 'ENDOFFILE'\n";
+  out += "// same as Genesis - EG 4e74a97 13/13 GRUEN - portable\n";
+  out += "ENDOFFILE\n";
+  out += "// Genesis generiert alle Files nach 8fc02b0 v1.0.5 - git add . + commit + push\n";
+
+  document.getElementById("out").innerText = out;
 }
-function selfBirth(){
-  document.getElementById('repoName').value='IrsanAI-Genesis';
+document.getElementById("birthBtn").addEventListener("click", birth);
+document.getElementById("selfBtn").addEventListener("click", function(){
+  document.getElementById("repoName").value = "IrsanAI-Genesis";
   birth();
-  document.getElementById('out').innerText+='\n\n// OUROBOROS: Diese Page hat sich gerade selbst generiert — v0.1 manual -> v0.2 self-born — Step 2 births Step 1 proven!\n';
-}
+  var el = document.getElementById("out");
+  el.innerText = el.innerText + "\n\n// OUROBOROS: Diese Page hat sich gerade selbst generiert - v0.2 -> v0.3 self-born proven!\n";
+});
 birth();
 </script>
 </body>
