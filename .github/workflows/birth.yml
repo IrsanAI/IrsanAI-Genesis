@@ -1,0 +1,74 @@
+name: Genesis Birth Automation
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: 'Repo Name z.B. IrsanAI-Orbit'
+        required: true
+        type: string
+      repo_type:
+        description: 'Type'
+        required: false
+        default: 'Graph / Orbit'
+      layer:
+        description: 'Layer'
+        required: false
+        default: 'Ist vs Soll + Timeline + Chemie'
+permissions:
+  contents: write
+jobs:
+  birth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Name like GitHub
+        run: |
+          NAME="${{ inputs.repo_name }}"
+          echo "Check $NAME"
+          if [[ ! $NAME =~ ^[A-Za-z0-9_.-]+$ ]]; then echo "❌ Invalid chars"; exit 1; fi
+          if [[ $NAME == .* ]]; then echo "❌ Cannot start with dot"; exit 1; fi
+          if [[ $NAME == *.git ]] || [[ $NAME == *.atom ]]; then echo "❌ Cannot end .git/.atom"; exit 1; fi
+          if [ ${#NAME} -gt 100 ]; then echo "❌ Too long"; exit 1; fi
+          echo "✅ Valid"
+      - name: Check if exists
+        env:
+          GH_TOKEN: ${{ secrets.IRSANAI_PAT }}
+        run: |
+          if gh repo view IrsanAI/${{ inputs.repo_name }} --json name 2>/dev/null; then
+            echo "❌ Exists already"; exit 1
+          else
+            echo "✅ Free to birth"
+          fi
+      - name: Create Repo + Scaffold
+        env:
+          GH_TOKEN: ${{ secrets.IRSANAI_PAT }}
+          PAT: ${{ secrets.IRSANAI_PAT }}
+        run: |
+          NAME="${{ inputs.repo_name }}"
+          TYPE="${{ inputs.repo_type }}"
+          LAYER="${{ inputs.layer }}"
+          gh repo create IrsanAI/$NAME --public --description "Born by Genesis v0.7 — $TYPE + $LAYER" --clone=false
+          sleep 4
+          TMP=/tmp/$NAME
+          mkdir -p $TMP/docs $TMP/src $TMP/scripts
+          cat > $TMP/docs/METHODIC.md <<EOF
+          $NAME v0.1 — Born by Genesis v0.7 Automation
+          Ist: repo created via birth.yml
+          Soll: 100% GRUEN via EG 4e74a97 13/13 + $LAYER
+          Type: $TYPE
+          Created: $(date -u)
+          EOF
+          cat > $TMP/README.md <<EOF
+          # $NAME
+          Born by Genesis Automation v0.7 — https://irsanai.github.io/IrsanAI-Genesis/
+          Type: $TYPE
+          EOF
+          cd $TMP
+          git init
+          git config user.name "IrsanAI-Genesis"
+          git config user.email "genesis@irsanai.local"
+          git remote add origin https://x-access-token:$PAT@github.com/IrsanAI/$NAME.git
+          git add .
+          git commit -m "feat: $NAME v0.1 born by Genesis v0.7 — $TYPE + $LAYER"
+          git branch -M main
+          git push -u origin main
+          echo "✅ $NAME born"

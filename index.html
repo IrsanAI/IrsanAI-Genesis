@@ -1,117 +1,84 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>IrsanAI-Genesis — Ouroboros Factory</title>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Genesis v0.7 — Birth Automation</title>
 <style>
 :root{--bg:#0a0a0b;--card:#141416;--line:#232326;--green:#00ff88;--text:#e8e8ea;--muted:#9a9aa0;--red:#ff5a5a}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 400px at 20% -10%,#162016 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,monospace;transition:padding-bottom.4s ease}
-.wrap{max-width:980px;margin:0 auto;padding:20px 16px 100px}
-.top{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:rgba(20,20,22,.88);border-radius:14px;padding:10px 14px}
-.badge{border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 8px;font-size:11px}
-.h1{font-size:30px;line-height:1.08;margin:20px 0 8px;font-weight:800;letter-spacing:-.02em}
-.sub{color:var(--muted);font-size:13px;line-height:1.6;max-width:680px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:monospace;padding-bottom:100px}
+.wrap{max-width:900px;margin:0 auto;padding:18px}
+.top{border:1px solid var(--line);background:#141416;border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between}
 .card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px;margin-top:14px}
-.label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:14px;outline:none}
-input:focus{border-color:var(--green)}
-.btn{width:100%;margin-top:10px;background:var(--text);color:#000;border:0;border-radius:10px;padding:13px;font-weight:700;cursor:pointer}
+input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px}
+input:focus{border-color:var(--green)} .btn{width:100%;margin-top:10px;background:var(--text);color:#000;border:0;border-radius:10px;padding:13px;font-weight:700;cursor:pointer}
 .btn2{background:transparent;color:var(--text);border:1px solid var(--line)}
-pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;line-height:1.45;max-height:420px;overflow:auto;transition:all.3s ease}
-pre.flash{border-color:var(--green);box-shadow:0 0 0 2px rgba(0,255,136,.15)}
-/* Buddy On-Demand — subtil */
-#buddyDot{position:fixed;right:16px;bottom:16px;z-index:9998;width:44px;height:44px;border-radius:50%;background:#141416;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:all.35s cubic-bezier(.4,0,.2,1)}
-#buddyDot:hover{border-color:var(--green);transform:scale(1.05)}
-#buddyPanel{position:fixed;right:16px;bottom:78px;z-index:9998;width:340px;max-width:calc(100vw - 32px);background:#141416;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.5);transform:translateY(12px) scale(.98);opacity:0;pointer-events:none;transition:all.4s cubic-bezier(.4,0,.2,1)}
-#buddyPanel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
-#buddyHead{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);background:#0f0f11}
+pre{white-space:pre-wrap;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;max-height:380px;overflow:auto}
+#buddyDot{position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;background:#141416;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
+#buddyPanel{position:fixed;right:16px;bottom:76px;width:340px;max-width:calc(100vw - 32px);background:#141416;border:1px solid var(--line);border-radius:16px;transform:translateY(10px);opacity:0;pointer-events:none;transition:.35s}
+#buddyPanel.open{transform:translateY(0);opacity:1;pointer-events:auto}
 #buddyLogs{max-height:28vh;overflow:auto;padding:8px 10px;font-size:11px;background:#0a0a0b}
-.log{margin:2px 0}.DEBUG{color:#7a7a8a}.INFO{color:var(--text)}.CLICK{color:#7ec8ff}.VALUE{color:#ffd479}.SUCCESS{color:var(--green)}.ERROR{color:var(--red)}.SYSTEM{color:var(--muted)}
-.smallBtn{border:1px solid var(--line);background:#1c1c1f;color:var(--text);border-radius:8px;padding:4px 7px;font-size:10px;margin-left:6px;cursor:pointer}
+.log{margin:2px 0}.SUCCESS{color:var(--green)}.ERROR{color:var(--red)}.INFO{color:var(--text)}.SYSTEM{color:var(--muted)}.DEBUG{color:#7a7a8a}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><div><b>IrsanAI-Genesis</b> <span style="color:var(--muted)">— Ouroboros Factory</span></div><div class="badge">v0.6 Genesis pur</div></div>
-<div class="h1">Schritt 2 gebaert Schritt 1.<br/>Die Fabrik die sich selbst baut.</div>
-<div class="sub">Genesis ist die Fabrik. Kein Buddy. Buddy lebt als <b>on-demand helper</b> auf jeder Page im Stack — automate, suggest, helper — aber hier geht es um Genesis v0.1 manuell nach LS 8fc02b0 v1.0.5 -> v0.2 self-born live. Eigener Atlas Stack, kein Fremd-Provider.</div>
+<div class="top"><div><b>Genesis</b> <span style="color:var(--muted)">— v0.7 Automation</span></div><div style="font-size:11px;color:var(--muted)">Ouroboros Factory</div></div>
 <div class="card">
-<div class="label">Genesis Wizard — Neues Repo gebaeren</div>
-<input id="repoName" value="" placeholder="z.B. IrsanAI-Orbit — dein neues Repo"/>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select><select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option><option>Root Ascent</option></select></div>
-<button class="btn" id="birthBtn">BIRTH — Genesis gebaert Repo</button>
-<button class="btn btn2" id="selfBtn">OUROBOROS — Genesis gebaert sich selbst</button>
+<div style="font-size:11px;color:var(--muted);margin-bottom:6px">REPO NAME — kein Prefill, wie GitHub selbst prueft</div>
+<input id="repoName" value="" placeholder="z.B. IrsanAI-Orbit"/>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select><select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option></select></div>
+<button class="btn" id="birthBtn">BIRTH — Repo automatisch erstellen</button>
+<button class="btn btn2" id="fallbackBtn">Fallback — Termux cat Bloecke zeigen</button>
 </div>
-<div class="card"><div class="label">Output — cat Bloecke fuer Termux</div><pre id="out">Noch nichts geboren — gib oben einen Namen ein und druecke BIRTH...</pre></div>
-<div class="card" style="border-style:dashed"><div class="label">Buddy On-Demand — Idee</div><div style="color:var(--muted);font-size:12px;line-height:1.5">Buddy soll nicht Hauptinhalt sein. Stattdessen auf jeder GitHub Page im Stack einbettbar: <code>buddy.js</code> — dann Helper, Suggest, Automate per Floating Dot. Genesis bleibt pur. Buddy ist Service Layer.</div></div>
+<div class="card"><div style="font-size:11px;color:var(--muted)">STATUS / OUTPUT</div><pre id="out">Bereit — Namen eingeben, BIRTH druecken. Braucht PAT im Buddy Dot.</pre></div>
 </div>
-<!-- Buddy Subtle Dot + Panel -->
-<div id="buddyDot" title="Buddy Helper — tap for logs"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b" stroke="#00ff88" stroke-width="1.2"/><text x="16" y="20" text-anchor="middle" font-family="monospace" font-weight="800" font-size="14" fill="#00ff88">IR</text></svg></div>
-<div id="buddyPanel">
-<div id="buddyHead"><div><b style="font-size:11px">Buddy</b> <span style="color:var(--muted);font-size:10px">— on demand • helper • suggest</span></div><div><button class="smallBtn" id="copyBtn">COPY</button><button class="smallBtn" id="closeBtn">X</button></div></div>
-<div id="buddyLogs"></div>
-</div>
-<script src="assets/buddy/buddy.js"></script>
+<div id="buddyDot">IR</div>
+<div id="buddyPanel"><div style="padding:10px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between"><b style="font-size:11px">Buddy — PAT + Logs</b><button id="closeBtn" style="background:transparent;border:1px solid var(--line);color:var(--text);border-radius:6px;padding:2px 6px">X</button></div>
+<div style="padding:10px"><div style="font-size:10px;color:var(--muted)">PAT (ghp_...) wird nur in localStorage gespeichert, nie gesendet ausser an api.github.com</div><input id="patInput" type="password" placeholder="ghp_..." style="margin-top:6px"/><button id="savePatBtn" style="margin-top:6px;width:100%;background:var(--text);color:#000;border:0;border-radius:8px;padding:8px;font-weight:700">PAT speichern</button><div id="patStatus" style="font-size:10px;color:var(--muted);margin-top:6px">Kein PAT gespeichert</div></div>
+<div id="buddyLogs"></div></div>
 <script>
 var LOGS=[];
-function ts(){return new Date().toTimeString().split(" ")[0];}
-function log(tag,msg){
-  var line="["+ts()+"] ["+tag+"] "+msg;LOGS.push(line);
-  var el=document.getElementById("buddyLogs");
-  if(el){var d=document.createElement("div");d.className="log "+tag;d.innerText=line;el.appendChild(d);el.scrollTop=el.scrollHeight;}
-  try{console.log(line);}catch(e){}
+function log(t,m){var l="["+new Date().toTimeString().split(" ")[0]+"] ["+t+"] "+m;LOGS.push(l);var e=document.getElementById("buddyLogs");if(e){var d=document.createElement("div");d.className="log "+t;d.innerText=l;e.appendChild(d);e.scrollTop=e.scrollHeight;}console.log(l);}
+function isValidRepoName(n){if(!n)return{valid:false,reason:"leer"};if(n.length>100)return{valid:false,reason:"zu lang >100"};if(!/^[A-Za-z0-9_.-]+$/.test(n))return{valid:false,reason:"nur Buchstaben Zahlen _ . - erlaubt"};if(n.startsWith("."))return{valid:false,reason:"darf nicht mit . starten"};if(n.endsWith(".git")||n.endsWith(".atom"))return{valid:false,reason:"darf nicht .git/.atom enden"};return{valid:true};}
+async function checkExists(name){try{var r=await fetch("https://api.github.com/repos/IrsanAI/"+name);if(r.status===404)return false;if(r.status===200)return true;log("SYSTEM","Exist check status "+r.status);return null;}catch(e){log("ERROR","Exist check fail "+e.message);return null;}}
+function getPAT(){return localStorage.getItem("IRSANAI_PAT")||"";}
+function setPAT(p){localStorage.setItem("IRSANAI_PAT",p);}
+async function triggerWorkflow(name,type,layer,pat){
+  var url="https://api.github.com/repos/IrsanAI/IrsanAI-Genesis/actions/workflows/birth.yml/dispatches";
+  var body={ref:"main",inputs:{repo_name:name,repo_type:type,layer:layer}};
+  log("INFO","Trigger workflow_dispatch "+name);
+  var res=await fetch(url,{method:"POST",headers:{"Accept":"application/vnd.github.v3+json","Authorization":"token "+pat,"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(res.status===204){log("SUCCESS","Workflow getriggert — 204 No Content — schau in Actions Tab");return true;}else{var txt=await res.text();log("ERROR","Dispatch failed "+res.status+" "+txt);return false;}
 }
-window.addEventListener("error",function(e){log("ERROR","window.onerror: "+e.message+" l:"+e.lineno);});
-function birth(){
-  try{
-    log("CLICK","BIRTH clicked");
-    var input=document.getElementById("repoName");
-    var outEl=document.getElementById("out");
-    log("DEBUG","Elements check — input:"+(!!input)+" out:"+(!!outEl));
-    if(!input||!outEl){log("ERROR","DOM elements missing");return;}
-    var raw=(input.value||"").trim();
-    log("VALUE","raw input='"+raw+"'");
-    if(!raw){
-      log("ERROR","Kein Repo Name eingegeben — Placeholder ist kein Value, User muss tippen");
-      outEl.innerText="⚠️ Bitte oben einen Repo Namen eingeben — z.B. IrsanAI-Orbit — dann BIRTH.";
-      outEl.classList.add("flash"); setTimeout(function(){outEl.classList.remove("flash");},1200);
-      return;
-    }
-    var name=raw; var type=document.getElementById("repoType").value; var layer=document.getElementById("layer").value;
-    log("INFO","Generating for name="+name+" type="+type+" layer="+layer);
-    var out="";
-    out+="cd ~/github/IrsanAI\nmkdir -p "+name+"\ncd ~/github/IrsanAI/"+name+"\nmkdir -p docs src scripts\n";
-    out+="cat > docs/METHODIC.md << 'ENDOFFILE'\n"+name+" v0.1 — Born by Genesis v0.6\nIst: empty repo\nSoll: 100% GRUEN via EG 4e74a97 13/13 + "+layer+"\nType: "+type+"\nENDOFFILE\n\n";
-    out+="cat > README.md << 'ENDOFFILE'\n# "+name+"\nBorn by Genesis https://irsanai.github.io/IrsanAI-Genesis/\nENDOFFILE\n";
-    log("DEBUG","out length before render="+out.length);
-    outEl.innerText=out;
-    log("SUCCESS","Output gerendert len="+out.length+" — scrolle zu Output");
-    outEl.classList.add("flash");
-    outEl.scrollIntoView({behavior:"smooth",block:"center"});
-    setTimeout(function(){outEl.classList.remove("flash");},1500);
-    document.getElementById("birthBtn").innerText="BIRTH — "+name+" geboren ✓";
-  }catch(e){log("ERROR","birth crash: "+e.message+" stack="+(e.stack||"").substring(0,200));}
+function showFallback(name,type,layer){
+  var out="cd ~/github/IrsanAI\nmkdir -p "+name+"\ncd "+name+"\ncat > docs/METHODIC.md << 'ENDOFFILE'\n"+name+" v0.1 Born by Genesis v0.7\nType "+type+" Layer "+layer+"\nENDOFFILE\n";
+  document.getElementById("out").innerText=out;
 }
 document.addEventListener("DOMContentLoaded",function(){
-  log("SYSTEM","Genesis v0.6 pur init — no prefill, Buddy subtle");
-  log("SYSTEM","UA: "+navigator.userAgent.substring(0,70));
-  log("DEBUG","Viewport "+window.innerWidth+"x"+window.innerHeight+" buddyDot exists:"+(!!document.getElementById("buddyDot")));
-  var b=document.getElementById("birthBtn");
-  var s=document.getElementById("selfBtn");
-  var dot=document.getElementById("buddyDot");
-  var panel=document.getElementById("buddyPanel");
-  if(b){b.addEventListener("click",birth); b.addEventListener("touchend",function(e){e.preventDefault();birth();});}
-  if(s){s.addEventListener("click",function(){var i=document.getElementById("repoName"); if(i) i.value="IrsanAI-Genesis"; birth();});}
-  if(dot&&panel){
-    dot.addEventListener("click",function(){panel.classList.toggle("open"); log("SYSTEM","Buddy panel toggled open="+panel.classList.contains("open"));});
-  }
+  log("SYSTEM","v0.7 Automation ready — kein Prefill");
+  var dot=document.getElementById("buddyDot"),panel=document.getElementById("buddyPanel");
+  dot.addEventListener("click",function(){panel.classList.toggle("open");});
   document.getElementById("closeBtn").addEventListener("click",function(){panel.classList.remove("open");});
-  document.getElementById("copyBtn").addEventListener("click",function(){
-    var t=LOGS.join("\n");
-    if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){log("SUCCESS","Logs copied");});}
+  var patIn=document.getElementById("patInput"),patStatus=document.getElementById("patStatus");
+  var existing=getPAT(); if(existing){patStatus.innerText="PAT gespeichert (***"+existing.slice(-4)+")"; patIn.value=existing;}
+  document.getElementById("savePatBtn").addEventListener("click",function(){var v=patIn.value.trim(); if(!v){log("ERROR","Kein PAT eingegeben");return;} setPAT(v); patStatus.innerText="Gespeichert ***"+v.slice(-4); log("SUCCESS","PAT gespeichert in localStorage");});
+  document.getElementById("birthBtn").addEventListener("click",async function(){
+    var name=document.getElementById("repoName").value.trim();
+    var type=document.getElementById("repoType").value;
+    var layer=document.getElementById("layer").value;
+    log("INFO","BIRTH click name="+name);
+    var v=isValidRepoName(name); if(!v.valid){log("ERROR","Name invalid: "+v.reason); document.getElementById("out").innerText="❌ Name invalid: "+v.reason+" — GitHub Regel: nur A-Z 0-9 _ . - , nicht mit . starten, nicht .git enden"; return;}
+    var exists=await checkExists(name); if(exists===true){log("ERROR","Repo existiert bereits"); document.getElementById("out").innerText="❌ IrsanAI/"+name+" existiert schon"; return;} if(exists===null){log("SYSTEM","Exist check unklar, fahre fort");}
+    var pat=getPAT(); if(!pat){log("ERROR","Kein PAT — zeige Fallback"); document.getElementById("out").innerText="⚠️ Kein PAT gespeichert — tippe IR Dot unten, trage ghp_... ein. Fallback cat Bloecke:"; showFallback(name,type,layer); return;}
+    document.getElementById("out").innerText="⏳ Erstelle IrsanAI/"+name+" via Automation Workflow... schau gleich in Actions Tab";
+    var ok=await triggerWorkflow(name,type,layer,pat);
+    if(ok){document.getElementById("out").innerText="✅ Workflow getriggert! Gehe zu: github.com/IrsanAI/IrsanAI-Genesis/actions — dort laeuft jetzt 'Genesis Birth Automation' und gebaert "+name+" live. Dauer ~20s.";}
   });
-  log("SYSTEM","Ready — Input leer per Wunsch, Console minimiert, sanfter Slide bereit");
+  document.getElementById("fallbackBtn").addEventListener("click",function(){
+    var n=document.getElementById("repoName").value.trim()||"IrsanAI-Orbit";
+    showFallback(n,document.getElementById("repoType").value,document.getElementById("layer").value);
+    log("INFO","Fallback cat Bloecke gezeigt");
+  });
 });
 </script>
 </body>
