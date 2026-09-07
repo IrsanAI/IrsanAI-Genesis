@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.env
+.DS_Store
+# cockpits/ war in LS geblockt — hier nicht blocken — Genesis ist portable
