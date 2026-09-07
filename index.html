@@ -3,106 +3,115 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>IrsanAI-Genesis v0.5 — Buddy Reunion + F12</title>
+<title>IrsanAI-Genesis — Ouroboros Factory</title>
 <style>
 :root{--bg:#0a0a0b;--card:#141416;--line:#232326;--green:#00ff88;--text:#e8e8ea;--muted:#9a9aa0;--red:#ff5a5a}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 15% -10%,#1a2a1f 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,monospace;padding-bottom:260px}
-.wrap{max-width:1100px;margin:0 auto;padding:18px}
-.top{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:rgba(20,20,22,.92);border-radius:14px;padding:10px 14px}
-.badge{border:1px solid var(--green);color:var(--green);border-radius:999px;padding:3px 8px;font-size:11px}
-.h1{font-size:28px;line-height:1.1;margin:18px 0 8px;font-weight:800}
-.sub{color:var(--muted);font-size:13px;line-height:1.5}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 400px at 20% -10%,#162016 0%,transparent 60%),var(--bg);color:var(--text);font-family:Inter,system-ui,monospace;transition:padding-bottom.4s ease}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 100px}
+.top{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);background:rgba(20,20,22,.88);border-radius:14px;padding:10px 14px}
+.badge{border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 8px;font-size:11px}
+.h1{font-size:30px;line-height:1.08;margin:20px 0 8px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px;line-height:1.6;max-width:680px}
 .card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px;margin-top:14px}
 .label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;font-size:14px}
-.btn{width:100%;margin-top:10px;background:var(--text);color:#000;border:0;border-radius:10px;padding:13px 14px;font-weight:700;cursor:pointer}
+input,select{width:100%;background:#0f0f11;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:14px;outline:none}
+input:focus{border-color:var(--green)}
+.btn{width:100%;margin-top:10px;background:var(--text);color:#000;border:0;border-radius:10px;padding:13px;font-weight:700;cursor:pointer}
 .btn2{background:transparent;color:var(--text);border:1px solid var(--line)}
-pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;line-height:1.45;max-height:320px;overflow:auto}
-#irsanConsole{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#0f0f11;border-top:2px solid var(--green);max-height:46vh;display:flex;flex-direction:column}
-#irsanConsoleHead{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:#141416;border-bottom:1px solid var(--line)}
-#irsanConsoleLogs{overflow:auto;padding:8px 10px;font-size:11px;line-height:1.5;background:#0a0a0b;flex:1}
-.log{margin:2px 0}.INFO{color:var(--text)}.CLICK{color:#7ec8ff}.VALUE{color:#ffd479}.SUCCESS{color:var(--green)}.ERROR{color:var(--red);font-weight:700}.BUDDY{color:#00ff88;font-weight:700}.SYSTEM{color:var(--muted)}
-.cbtn{border:1px solid var(--line);background:#1c1c1f;color:var(--text);border-radius:8px;padding:5px 8px;font-size:10px;margin-left:6px;cursor:pointer}
+pre{white-space:pre-wrap;word-break:break-word;background:#0c0c0e;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;line-height:1.45;max-height:420px;overflow:auto;transition:all.3s ease}
+pre.flash{border-color:var(--green);box-shadow:0 0 0 2px rgba(0,255,136,.15)}
+/* Buddy On-Demand — subtil */
+#buddyDot{position:fixed;right:16px;bottom:16px;z-index:9998;width:44px;height:44px;border-radius:50%;background:#141416;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:all.35s cubic-bezier(.4,0,.2,1)}
+#buddyDot:hover{border-color:var(--green);transform:scale(1.05)}
+#buddyPanel{position:fixed;right:16px;bottom:78px;z-index:9998;width:340px;max-width:calc(100vw - 32px);background:#141416;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.5);transform:translateY(12px) scale(.98);opacity:0;pointer-events:none;transition:all.4s cubic-bezier(.4,0,.2,1)}
+#buddyPanel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+#buddyHead{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);background:#0f0f11}
+#buddyLogs{max-height:28vh;overflow:auto;padding:8px 10px;font-size:11px;background:#0a0a0b}
+.log{margin:2px 0}.DEBUG{color:#7a7a8a}.INFO{color:var(--text)}.CLICK{color:#7ec8ff}.VALUE{color:#ffd479}.SUCCESS{color:var(--green)}.ERROR{color:var(--red)}.SYSTEM{color:var(--muted)}
+.smallBtn{border:1px solid var(--line);background:#1c1c1f;color:var(--text);border-radius:8px;padding:4px 7px;font-size:10px;margin-left:6px;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="top"><div style="display:flex;align-items:center;gap:10px"><svg width="28" height="28" viewBox="0 0 100 100"><path d="M50 4 L88 26 L88 74 L50 96 L12 74 L12 26 Z" fill="#0a0a0b" stroke="#00ff88" stroke-width="2.5"/><text x="50" y="58" text-anchor="middle" font-family="monospace" font-weight="800" font-size="26" fill="#00ff88">IR</text></svg><div><b>IrsanAI-Genesis</b> <span style="color:#9a9aa0">— v0.5 Buddy Reunion</span></div></div><div class="badge">BUDDY IS BACK</div></div>
-<div class="h1">Buddy war nie weg.<br/>Wir haben nur vergessen<br/>warum wir ihn gebaut haben.</div>
-<div class="sub">Buddy = Consumer der komplexe Welt einfach macht. Du sagst "Orbit" — Buddy macht TaskClassifier -> EG 4e74a97 gatekeep 0.88 MATCH -> Creator draft. Ohne cat tippen. Das ist IRSANAI.</div>
+<div class="top"><div><b>IrsanAI-Genesis</b> <span style="color:var(--muted)">— Ouroboros Factory</span></div><div class="badge">v0.6 Genesis pur</div></div>
+<div class="h1">Schritt 2 gebaert Schritt 1.<br/>Die Fabrik die sich selbst baut.</div>
+<div class="sub">Genesis ist die Fabrik. Kein Buddy. Buddy lebt als <b>on-demand helper</b> auf jeder Page im Stack — automate, suggest, helper — aber hier geht es um Genesis v0.1 manuell nach LS 8fc02b0 v1.0.5 -> v0.2 self-born live. Eigener Atlas Stack, kein Fremd-Provider.</div>
 <div class="card">
-<div class="label">Genesis Wizard — mit Buddy</div>
-<input id="repoName" value="IrsanAI-Orbit"/>
+<div class="label">Genesis Wizard — Neues Repo gebaeren</div>
+<input id="repoName" value="" placeholder="z.B. IrsanAI-Orbit — dein neues Repo"/>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><select id="repoType"><option>Graph / Orbit</option><option>Consumer Buddy</option><option>Hub / Essence</option><option>Engine / IS</option></select><select id="layer"><option>Ist vs Soll + Timeline + Chemie</option><option>Future-Proof Layer</option><option>Gold Buddy Layer</option><option>Root Ascent</option></select></div>
-<button class="btn" id="birthBtn">BIRTH — Buddy gebaert IrsanAI-Orbit live</button>
-<button class="btn btn2" id="selfBtn">OUROBOROS — Genesis self-birth</button>
+<button class="btn" id="birthBtn">BIRTH — Genesis gebaert Repo</button>
+<button class="btn btn2" id="selfBtn">OUROBOROS — Genesis gebaert sich selbst</button>
 </div>
-<div class="card"><div class="label">Output — cat Blocks fuer Termux (Buddy generiert)</div><pre id="out">Warte auf Buddy...</pre></div>
-<div class="card"><div class="label">Buddy Assets Preview</div><div style="display:flex;gap:12px;align-items:center"><img src="assets/buddy/buddy-icon.svg" width="48" height="48" style="border:1px solid #232326;border-radius:10px"/><img src="assets/buddy/buddy-builder.svg" width="240" style="border:1px solid #232326;border-radius:10px"/><div style="color:#9a9aa0;font-size:11px;line-height:1.4">buddy-icon.svg = Favicon + F12<br/>buddy-builder.svg = Builder Mode<br/>buddy-onboarding.webp kommt am Laptop dazu</div></div></div>
+<div class="card"><div class="label">Output — cat Bloecke fuer Termux</div><pre id="out">Noch nichts geboren — gib oben einen Namen ein und druecke BIRTH...</pre></div>
+<div class="card" style="border-style:dashed"><div class="label">Buddy On-Demand — Idee</div><div style="color:var(--muted);font-size:12px;line-height:1.5">Buddy soll nicht Hauptinhalt sein. Stattdessen auf jeder GitHub Page im Stack einbettbar: <code>buddy.js</code> — dann Helper, Suggest, Automate per Floating Dot. Genesis bleibt pur. Buddy ist Service Layer.</div></div>
 </div>
-<div id="irsanConsole">
-<div id="irsanConsoleHead"><div style="display:flex;align-items:center;gap:8px"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b" stroke="#00ff88" stroke-width="1.2"/><text x="16" y="20" text-anchor="middle" font-family="monospace" font-weight="800" font-size="14" fill="#00ff88">IR</text></svg><b>F12 IRSANAI BUDDY CONSOLE</b> <span style="color:#9a9aa0;font-size:10px">— GUIDE MODE ACTIVE</span></div><div><button class="cbtn" id="copyLogsBtn">COPY LOGS</button><button class="cbtn" id="clearLogsBtn">CLEAR</button><button class="cbtn" id="toggleBtn">MIN</button></div></div>
-<div id="irsanConsoleLogs"></div>
+<!-- Buddy Subtle Dot + Panel -->
+<div id="buddyDot" title="Buddy Helper — tap for logs"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b" stroke="#00ff88" stroke-width="1.2"/><text x="16" y="20" text-anchor="middle" font-family="monospace" font-weight="800" font-size="14" fill="#00ff88">IR</text></svg></div>
+<div id="buddyPanel">
+<div id="buddyHead"><div><b style="font-size:11px">Buddy</b> <span style="color:var(--muted);font-size:10px">— on demand • helper • suggest</span></div><div><button class="smallBtn" id="copyBtn">COPY</button><button class="smallBtn" id="closeBtn">X</button></div></div>
+<div id="buddyLogs"></div>
 </div>
+<script src="assets/buddy/buddy.js"></script>
 <script>
 var LOGS=[];
-function ts(){var d=new Date();return d.toTimeString().split(" ")[0];}
-function log(tag,msg){var line="["+ts()+"] ["+tag+"] "+msg;LOGS.push(line);var el=document.getElementById("irsanConsoleLogs");if(el){var d=document.createElement("div");d.className="log "+tag;d.innerText=line;el.appendChild(d);el.scrollTop=el.scrollHeight;}try{console.log(line);}catch(e){}}
-window.addEventListener("error",function(e){log("ERROR","onerror: "+e.message+" @"+e.lineno);});
+function ts(){return new Date().toTimeString().split(" ")[0];}
+function log(tag,msg){
+  var line="["+ts()+"] ["+tag+"] "+msg;LOGS.push(line);
+  var el=document.getElementById("buddyLogs");
+  if(el){var d=document.createElement("div");d.className="log "+tag;d.innerText=line;el.appendChild(d);el.scrollTop=el.scrollHeight;}
+  try{console.log(line);}catch(e){}
+}
+window.addEventListener("error",function(e){log("ERROR","window.onerror: "+e.message+" l:"+e.lineno);});
 function birth(){
   try{
-    log("CLICK","BIRTH clicked — Buddy uebernimmt");
+    log("CLICK","BIRTH clicked");
     var input=document.getElementById("repoName");
-    if(!input){log("ERROR","repoName input missing");return;}
-    var name=(input.value||"").trim()||"IrsanAI-Orbit";
-    log("VALUE","repoName="+name);
-    var type=document.getElementById("repoType").value;
-    var layer=document.getElementById("layer").value;
-    log("BUDDY","GUIDE MODE ACTIVE — TaskClassifier: essenceGuess='"+name+" "+type+"'");
-    log("BUDDY","gatekeep() vs EG 4e74a97 13/13 GRUEN...");
-    log("BUDDY","MATCH 0.88 code-generation — Creator draft start");
-    var out="";
-    out+="cd ~/github/IrsanAI\n";
-    out+="mkdir -p "+name+"\n";
-    out+="cd ~/github/IrsanAI/"+name+"\n";
-    out+="mkdir -p docs src scripts templates assets/buddy\n";
-    out+="cat > docs/METHODIC.md << 'ENDOFFILE'\n";
-    out+=name+" v0.1 — Born by Buddy + Genesis v0.5 Reunion\n";
-    out+="Ist: empty repo\n";
-    out+="Soll: 100% GRUEN via EG 4e74a97 13/13 + "+layer+" + Atlas Stack\n";
-    out+="Type: "+type+" — Buddy TaskClassifier -> gatekeep 0.88 MATCH\n";
-    out+="Buddy: Consumer der komplexe Welt einfach macht — IRSANAI\n";
-    out+="ENDOFFILE\n\n";
-    out+="cat > README.md << 'ENDOFFILE'\n";
-    out+="# "+name+" — Living Observatory — Born by Buddy\n";
-    out+="Born by https://irsanai.github.io/IrsanAI-Genesis/ — Buddy Builder Mode\n";
-    out+="ENDOFFILE\n";
     var outEl=document.getElementById("out");
-    if(outEl){outEl.innerText=out; log("SUCCESS","Output gerendert len="+out.length+" — Buddy fertig");}
-    var btn=document.getElementById("birthBtn");
-    if(btn) btn.innerText="BIRTH — Buddy hat "+name+" geboren";
-  }catch(e){log("ERROR","birth() crash: "+e.message);}
+    log("DEBUG","Elements check — input:"+(!!input)+" out:"+(!!outEl));
+    if(!input||!outEl){log("ERROR","DOM elements missing");return;}
+    var raw=(input.value||"").trim();
+    log("VALUE","raw input='"+raw+"'");
+    if(!raw){
+      log("ERROR","Kein Repo Name eingegeben — Placeholder ist kein Value, User muss tippen");
+      outEl.innerText="⚠️ Bitte oben einen Repo Namen eingeben — z.B. IrsanAI-Orbit — dann BIRTH.";
+      outEl.classList.add("flash"); setTimeout(function(){outEl.classList.remove("flash");},1200);
+      return;
+    }
+    var name=raw; var type=document.getElementById("repoType").value; var layer=document.getElementById("layer").value;
+    log("INFO","Generating for name="+name+" type="+type+" layer="+layer);
+    var out="";
+    out+="cd ~/github/IrsanAI\nmkdir -p "+name+"\ncd ~/github/IrsanAI/"+name+"\nmkdir -p docs src scripts\n";
+    out+="cat > docs/METHODIC.md << 'ENDOFFILE'\n"+name+" v0.1 — Born by Genesis v0.6\nIst: empty repo\nSoll: 100% GRUEN via EG 4e74a97 13/13 + "+layer+"\nType: "+type+"\nENDOFFILE\n\n";
+    out+="cat > README.md << 'ENDOFFILE'\n# "+name+"\nBorn by Genesis https://irsanai.github.io/IrsanAI-Genesis/\nENDOFFILE\n";
+    log("DEBUG","out length before render="+out.length);
+    outEl.innerText=out;
+    log("SUCCESS","Output gerendert len="+out.length+" — scrolle zu Output");
+    outEl.classList.add("flash");
+    outEl.scrollIntoView({behavior:"smooth",block:"center"});
+    setTimeout(function(){outEl.classList.remove("flash");},1500);
+    document.getElementById("birthBtn").innerText="BIRTH — "+name+" geboren ✓";
+  }catch(e){log("ERROR","birth crash: "+e.message+" stack="+(e.stack||"").substring(0,200));}
 }
 document.addEventListener("DOMContentLoaded",function(){
-  log("SYSTEM","Buddy F12 init — UA: "+navigator.userAgent.substring(0,80));
-  log("SYSTEM","Viewport "+window.innerWidth+"x"+window.innerHeight);
-  log("BUDDY","ONBOARDING 100% — SYSTEM ONLINE READY — I'M HERE TO HELP");
-  log("BUDDY","Ich wurde erschaffen damit du nicht mehr cat tippen musst — ich mache es fuer dich");
+  log("SYSTEM","Genesis v0.6 pur init — no prefill, Buddy subtle");
+  log("SYSTEM","UA: "+navigator.userAgent.substring(0,70));
+  log("DEBUG","Viewport "+window.innerWidth+"x"+window.innerHeight+" buddyDot exists:"+(!!document.getElementById("buddyDot")));
   var b=document.getElementById("birthBtn");
   var s=document.getElementById("selfBtn");
-  if(b){b.addEventListener("click",birth); b.addEventListener("touchend",function(e){e.preventDefault();birth();}); log("SYSTEM","birthBtn listener attached");}
-  if(s){s.addEventListener("click",function(){document.getElementById("repoName").value="IrsanAI-Genesis";birth();});}
-  birth();
-});
-document.getElementById("copyLogsBtn").addEventListener("click",function(){
-  var t=LOGS.join("\n");
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){log("SUCCESS","Logs copied");});}else{log("SYSTEM","Select logs manually");}
-});
-document.getElementById("clearLogsBtn").addEventListener("click",function(){LOGS=[];document.getElementById("irsanConsoleLogs").innerHTML=""; log("SYSTEM","cleared");});
-document.getElementById("toggleBtn").addEventListener("click",function(){
-  var l=document.getElementById("irsanConsoleLogs");
-  var b=document.getElementById("toggleBtn");
-  if(l.style.display==="none"){l.style.display="block";b.innerText="MIN";}else{l.style.display="none";b.innerText="MAX";}
+  var dot=document.getElementById("buddyDot");
+  var panel=document.getElementById("buddyPanel");
+  if(b){b.addEventListener("click",birth); b.addEventListener("touchend",function(e){e.preventDefault();birth();});}
+  if(s){s.addEventListener("click",function(){var i=document.getElementById("repoName"); if(i) i.value="IrsanAI-Genesis"; birth();});}
+  if(dot&&panel){
+    dot.addEventListener("click",function(){panel.classList.toggle("open"); log("SYSTEM","Buddy panel toggled open="+panel.classList.contains("open"));});
+  }
+  document.getElementById("closeBtn").addEventListener("click",function(){panel.classList.remove("open");});
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var t=LOGS.join("\n");
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){log("SUCCESS","Logs copied");});}
+  });
+  log("SYSTEM","Ready — Input leer per Wunsch, Console minimiert, sanfter Slide bereit");
 });
 </script>
 </body>
